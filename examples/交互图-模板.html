@@ -1,0 +1,160 @@
+<!--
+  交互图模板 —— 三件套的第 2 件，由 vibe-coding-prd 访谈 Agent 在 PRD 之后产出。
+  它是 1-PRD.md 的「可点击视觉实现」，也是反过来喂给开发 AI 的精确说明书。
+
+  ★ 怎么用这个模板：
+  1. 把下面 :root 里的设计 Token 换成 PRD §设计 Token 表里的真实值。
+  2. 每个 PRD 里的页面，复制一个 <div class="page"> 来实现；id 对应 PRD 的路由/页面名。
+  3. 每个页面要覆盖五种状态（见 §状态覆盖注释）：空态 / 加载态 / 错误态 / 编辑态 / 移动端。
+  4. 用 demo 假数据把交互跑起来（按钮能点、切换有反馈），正式开发时替换为真实逻辑。
+  5. 顶部用注释写清「API 映射」：哪个按钮对应哪个接口 / 哪次本地存储。
+
+  ★ 与 PRD / 开发文档的契约：
+  - 所有色值、尺寸 = PRD §设计 Token（不要在这里另发明颜色）
+  - 所有 UI 元素 = PRD §UI/交互说明（元素级一一对应）
+  - 所有状态 = PRD §全局状态覆盖
+  - 前端实现必须保留本文件的 CSS 变量、组件结构和交互行为
+
+  ★ API / 存储映射（按项目填）：
+  - {某动作} → {接口 或 本地存储表}
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<!-- 移动端 / PWA 友好（按需保留） -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a1a2e">
+<title>{产品名称} - 交互原型</title>
+<style>
+  /* ===== 设计 Token：从 PRD §设计 Token 表填入，集中在这里，全局复用 ===== */
+  :root{
+    --primary:#4f46e5;          /* 主色：按钮 / 激活 / 强调 */
+    --primary-hover:#4338ca;    /* 主色按下态 */
+    --bg:#0f1115;               /* 页面背景 */
+    --card-bg:#1a1d24;          /* 卡片背景 */
+    --input-bg:#222633;         /* 输入框 / 选择器背景 */
+    --text:#e8eaed;             /* 正文 */
+    --text-secondary:#9aa0aa;   /* 次要文字 */
+    --text-inverse:#ffffff;     /* 主色按钮上的文字 */
+    --success:#22c55e;          /* 成功 */
+    --danger:#ef4444;           /* 错误 / 危险 */
+    --warning:#f59e0b;          /* 警告 */
+    --border:#2c303a;           /* 描边 */
+    /* 尺寸 Token */
+    --radius-card:16px; --radius-btn:12px; --radius-input:8px;
+    --gap-page:16px; --tap-min:44px;   /* 触控目标 ≥44px */
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;
+       background:#06070a;color:var(--text);font-size:16px;line-height:1.5;min-height:100vh}
+
+  /* ===== 页面容器：一个 .page = PRD 里的一个页面，.on 表示当前显示 ===== */
+  .page{display:none;max-width:480px;margin:0 auto;padding:var(--gap-page);min-height:100vh}
+  .page.on{display:block}
+
+  /* ===== 通用组件（按需增减；命名见名知意，方便开发 AI 直接复用） ===== */
+  h1{font-size:1.75rem;font-weight:800;color:var(--primary)}
+  h2{font-size:1.5rem;font-weight:700}
+  .header{display:flex;align-items:center;gap:12px;padding:16px 0;margin-bottom:8px}
+  .header h2{flex:1}
+  .btn-back{width:var(--tap-min);height:var(--tap-min);display:flex;align-items:center;justify-content:center;
+            color:var(--text-secondary);font-size:1.25rem;cursor:pointer;border:none;background:none;border-radius:var(--radius-input)}
+  .card{background:var(--card-bg);border-radius:var(--radius-card);padding:20px;margin-bottom:12px;
+        border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+  .card.tap{cursor:pointer;display:flex;align-items:center;gap:16px;min-height:88px}
+  .card.tap:active{transform:scale(.98);border-color:var(--primary)}
+  .btn-main{display:block;width:100%;padding:16px;border:none;border-radius:var(--radius-btn);
+            background:var(--primary);color:var(--text-inverse);font-size:1.1rem;font-weight:700;
+            cursor:pointer;margin-top:16px;min-height:var(--tap-min)}
+  .btn-main:active{background:var(--primary-hover);transform:scale(.98)}
+  .btn-main.stop{background:var(--danger)}
+  input,select{width:100%;padding:12px;border:2px solid var(--input-bg);border-radius:var(--radius-input);
+               background:var(--input-bg);color:var(--text);font-size:16px}
+  .field-error{border-color:var(--danger)!important}   /* 非法值标红 */
+  .hint{font-size:.8rem;color:var(--text-secondary);margin-top:6px}
+
+  /* ===== 状态覆盖（PRD §全局状态覆盖）：每个页面都应能展示这五种 ===== */
+  .state-empty{text-align:center;color:var(--text-secondary);padding:40px 0}
+  .state-loading{text-align:center;color:var(--text-secondary);padding:24px 0}
+  .state-error{background:rgba(239,68,68,.12);color:var(--danger);border-radius:var(--radius-input);
+               padding:12px;font-size:.9rem;margin:12px 0}
+
+  /* ===== 底部导航（多页面 App 用；单页面可删） ===== */
+  .tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:480px;width:100%;
+          height:60px;display:flex;border-top:1px solid var(--border);background:var(--card-bg)}
+  .tabbar .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+               gap:2px;color:var(--text-secondary);font-size:11px;cursor:pointer}
+  .tabbar .tab.on{color:var(--primary)}
+</style>
+</head>
+<body>
+
+  <!-- ========== 页面 1：示例·首页（替换成你 PRD 里的真实页面） ========== -->
+  <div class="page on" id="home">
+    <h1>{产品名称}</h1>
+    <p class="hint">这是交互原型模板。把每个 PRD 页面做成一个 .page，按 PRD 的设计 Token 配色，覆盖五种状态。</p>
+
+    <!-- 可点卡片：点击导航到对应页面 -->
+    <div class="card tap" onclick="navTo('detail')">
+      <div style="flex:1"><strong>功能 A</strong><p class="hint">一句话说明 → 点击进入</p></div>
+      <span style="color:var(--text-secondary)">›</span>
+    </div>
+
+    <!-- 空态示例 -->
+    <div class="state-empty" id="homeEmpty">还没有数据，{引导文案}</div>
+  </div>
+
+  <!-- ========== 页面 2：示例·详情/表单（演示状态覆盖与校验） ========== -->
+  <div class="page" id="detail">
+    <div class="header">
+      <button class="btn-back" onclick="navTo('home')">‹</button>
+      <h2>功能 A</h2>
+    </div>
+
+    <div class="card">
+      <label class="hint">某个输入（示范非法值校验）</label>
+      <input id="amount" type="number" placeholder="请输入 1-100" oninput="validate(this)">
+      <div class="state-error" id="amountErr" style="display:none">请输入 1-100 之间的数字</div>
+      <button class="btn-main" id="submitBtn" onclick="submit()">提交</button>
+    </div>
+
+    <!-- 加载态 / 错误态占位（开发时按真实流程显隐） -->
+    <div class="state-loading" id="loading" style="display:none">处理中…</div>
+  </div>
+
+  <!-- 底部导航：多页面 App 保留，单页面删掉 -->
+  <div class="tabbar">
+    <div class="tab on" onclick="navTo('home')"><span>🏠</span>首页</div>
+    <div class="tab" onclick="navTo('detail')"><span>⚙️</span>详情</div>
+  </div>
+
+<script>
+  // ===== 导航：切换 .page.on（开发 AI 可直接复用这套最简路由） =====
+  function navTo(id){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    document.getElementById(id).classList.add('on');
+    document.querySelectorAll('.tabbar .tab').forEach(t=>t.classList.remove('on'));
+    window.scrollTo(0,0);
+  }
+
+  // ===== 输入校验示例：非法值标红 + 错误态文案（对应 PRD 编辑态/错误态） =====
+  function validate(el){
+    const v = Number(el.value), bad = !el.value || v<1 || v>100;
+    el.classList.toggle('field-error', bad);
+    document.getElementById('amountErr').style.display = bad ? 'block' : 'none';
+    document.getElementById('submitBtn').disabled = bad;
+  }
+
+  // ===== 提交示例：演示「加载态 → 成功/错误态」。正式开发替换为真实接口/存储 =====
+  function submit(){
+    document.getElementById('loading').style.display = 'block';
+    setTimeout(()=>{   // 假延迟，模拟请求
+      document.getElementById('loading').style.display = 'none';
+      alert('提交成功（演示）。开发时这里对接：{接口 或 本地存储}');
+    }, 800);
+  }
+</script>
+</body>
+</html>
