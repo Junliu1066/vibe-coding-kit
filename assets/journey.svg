@@ -1,0 +1,65 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bgj" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#181228"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bgj)"/>
+  <text x="600" y="58" fill="#ffffff" font-size="34" font-weight="800" text-anchor="middle">你的旅程：5 个 Skill，在你需要的那一刻自动登场</text>
+
+  <!-- vertical guide line -->
+  <line x1="360" y1="120" x2="360" y2="620" stroke="#2a2f3a" stroke-width="2"/>
+
+  <!-- node helper: dot -->
+  <!-- 0 idea -->
+  <circle cx="360" cy="120" r="9" fill="#ff5c8a"/>
+  <text x="392" y="128" fill="#e6edf3" font-size="26" font-weight="700">有个想法</text>
+
+  <!-- prd branch -->
+  <g transform="translate(700,96)">
+    <rect width="420" height="58" rx="14" fill="#2a1a24" stroke="#5a2c40" stroke-width="1.5"/>
+    <text x="22" y="36" fill="#ff8fb3" font-size="22" font-weight="700">💬 prd</text>
+    <text x="120" y="36" fill="#cdb8c2" font-size="19">说不清需求？访谈式一问一答帮你问出来</text>
+  </g>
+  <line x1="360" y1="125" x2="700" y2="125" stroke="#5a2c40" stroke-width="2" stroke-dasharray="5 5"/>
+
+  <!-- 1 requirements -->
+  <circle cx="360" cy="225" r="9" fill="#8fd3ff"/>
+  <g transform="translate(392,196)">
+    <rect width="430" height="58" rx="14" fill="#15212e" stroke="#234055" stroke-width="1.5"/>
+    <text x="22" y="36" fill="#8fd3ff" font-size="22" font-weight="700">🎯 requirements</text>
+    <text x="220" y="36" fill="#a9c2d3" font-size="19">把需求说清，先想要不要写代码</text>
+  </g>
+
+  <!-- demo checkpoint -->
+  <circle cx="360" cy="320" r="9" fill="#8b949e"/>
+  <text x="392" y="328" fill="#8b949e" font-size="20">跑出 demo，验证想法　→　不值得做？收工，已省下一下午</text>
+
+  <!-- 2 architecture -->
+  <circle cx="360" cy="415" r="9" fill="#b39dff"/>
+  <g transform="translate(392,386)">
+    <rect width="430" height="58" rx="14" fill="#1c1830" stroke="#3a2f5c" stroke-width="1.5"/>
+    <text x="22" y="36" fill="#b39dff" font-size="22" font-weight="700">🧭 architecture</text>
+    <text x="210" y="36" fill="#bdb2d8" font-size="19">看懂架构、选对技术（顺便练成行家）</text>
+  </g>
+
+  <!-- 3 production -->
+  <circle cx="360" cy="510" r="9" fill="#7ee2a8"/>
+  <g transform="translate(392,481)">
+    <rect width="430" height="58" rx="14" fill="#10231a" stroke="#1f4a33" stroke-width="1.5"/>
+    <text x="22" y="36" fill="#7ee2a8" font-size="22" font-weight="700">🚀 production</text>
+    <text x="190" y="36" fill="#a6cdb5" font-size="19">规范 / 安全 / 部署 / 验收 / 文档</text>
+  </g>
+
+  <!-- arrow down to survival -->
+  <line x1="360" y1="555" x2="360" y2="600" stroke="#2a2f3a" stroke-width="2"/>
+
+  <!-- 4 survival spanning -->
+  <g transform="translate(150,602)">
+    <rect width="900" height="74" rx="16" fill="#231a12" stroke="#5c4326" stroke-width="1.5"/>
+    <text x="28" y="34" fill="#ffb38f" font-size="22" font-weight="700">🛟 survival</text>
+    <text x="28" y="60" fill="#cdb8a2" font-size="19">从第一行代码起，全程在场：管对话防忘事 · 守范围防膨胀 · 留备份防丢失 · 让 AI 证明给你看</text>
+  </g>
+  <text x="600" y="700" fill="#6e7681" font-size="17" text-anchor="middle" font-style="italic">只想跑 demo？通常 requirements + survival 就够了。</text>
+</svg>

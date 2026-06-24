@@ -1,0 +1,39 @@
+<svg width="1280" height="560" viewBox="0 0 1280 560" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#1a1430"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="560" fill="url(#bg2)"/>
+
+  <text x="640" y="78" fill="#ffffff" font-size="40" font-weight="800" text-anchor="middle">同一个想法，区别只在于"怎么说"</text>
+  <text x="640" y="120" fill="#8b949e" font-size="24" text-anchor="middle">第二种，AI 能直接开干，而且不会跑偏</text>
+
+  <!-- BEFORE card -->
+  <g transform="translate(80,170)">
+    <rect width="520" height="310" rx="20" fill="#160e10" stroke="#48232a" stroke-width="1.5"/>
+    <circle cx="48" cy="56" r="20" fill="#2a151a"/>
+    <text x="48" y="64" fill="#f85149" font-size="24" font-weight="800" text-anchor="middle">✕</text>
+    <text x="84" y="64" fill="#f85149" font-size="26" font-weight="700">模糊的想法</text>
+    <text x="44" y="150" fill="#d6c0c4" font-size="30" font-weight="600">"我想搭建一个</text>
+    <text x="44" y="196" fill="#d6c0c4" font-size="30" font-weight="600">开源项目。"</text>
+    <text x="44" y="272" fill="#7d6b6e" font-size="22">AI 无从下手，只能猜——然后猜错。</text>
+  </g>
+
+  <!-- arrow -->
+  <text x="640" y="335" fill="#ff5c8a" font-size="48" font-weight="800" text-anchor="middle">→</text>
+
+  <!-- AFTER card -->
+  <g transform="translate(680,170)">
+    <rect width="520" height="310" rx="20" fill="#0e1612" stroke="#1f4a33" stroke-width="1.5"/>
+    <circle cx="48" cy="56" r="20" fill="#13261b"/>
+    <text x="48" y="64" fill="#3fb950" font-size="24" font-weight="800" text-anchor="middle">✓</text>
+    <text x="84" y="64" fill="#3fb950" font-size="26" font-weight="700">说清楚的需求</text>
+    <text x="44" y="118" fill="#d3e0d6" font-size="23" font-weight="500">"我一个人用、本地运行；输入一组</text>
+    <text x="44" y="152" fill="#d3e0d6" font-size="23" font-weight="500">竞品链接，输出含定价 / 核心功能 /</text>
+    <text x="44" y="186" fill="#d3e0d6" font-size="23" font-weight="500">最近动态的对比报告；我不写代码、</text>
+    <text x="44" y="220" fill="#d3e0d6" font-size="23" font-weight="500">要控制 AI 调用成本、只用公开信息。"</text>
+    <text x="44" y="278" fill="#6b8a76" font-size="22">场景 · 目标 · 约束 · 验收，一句话说全。</text>
+  </g>
+</svg>

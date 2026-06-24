@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/social-preview.png" alt="vibe-coding-kit — 需求没说清，等于没说" width="820">
+
 # vibe-coding-kit
 
 **不教你写代码，教你把"用 AI 写代码"这件事，彻底想明白。**
@@ -38,47 +40,31 @@
 
 同一个人，同一个想法，区别只在于"怎么说"：
 
-```
-❌  "我想搭建一个开源项目。"
-
-✅  "我一个人用、本地运行；输入一组竞品链接，输出含
-     定价 / 核心功能 / 最近动态 的对比报告；我不写代码、
-     要控制 AI 调用成本、只用公开信息。"
-```
+<div align="center">
+<img src="assets/before-after.png" alt="模糊想法 vs 说清楚的需求" width="860">
+</div>
 
 第二种，AI 能**直接开干，而且不会跑偏**。本套件做的，就是带你从第一种，走到第二种——并且一路护送到上线。
 
 ## 套件里有什么
 
-四个轻量 Skill，**在你需要的那一刻，自动登场**：
+五个轻量 Skill，**在你需要的那一刻，自动登场**：
 
 | Skill | 什么时候用 | 给你什么 |
 |-------|-----------|---------|
-| 🎯 **requirements** | "我想做个 X" / 跑 demo / 对齐需求 | 该不该写代码的自检 + 需求四要素框架 |
+| 💬 **prd** | "帮我理需求" / "帮我写个 PRD" / 想清楚再开工 | **访谈式 Agent**：一问一答 + 岔路口给建议，产出 PRD 文件 |
+| 🎯 **requirements** | "我想做个 X" / 跑 demo / 对齐需求 | 该不该写代码的自检 + 需求四要素 + 把需求补全 |
 | 🧭 **architecture** | 选技术栈 / 看不懂 AI 给的方案 | 看懂任何架构的 **6 个维度** + 选型五步法 |
 | 🚀 **production** | demo 想做成正式系统 / 部署上线 | 开发规范 + 安全基线 + 部署 + 验收 + 文档 |
 | 🛟 **survival** | "AI 越改越乱" / 改坏退不回去 / AI 忘事 | 贯穿全程四件事 + 红线 + 项目说明书 |
 
-> **只想跑个 demo？** 你大概只要 `requirements`，再带上 `survival` 兜底。其余两个，等你决定"这东西值得做成正式的"，再回来。
+> **不知道从何说起？** 在 Claude Code / Codex 里直接用 `prd` 这个**访谈 Agent**——它会像产品顾问一样一点点问你，在你判断不了的地方（尤其"这东西该活在哪""用什么技术"）给你选项和推荐，最后把 `prd.md` 写进你的项目目录。
 
 ## 你的旅程
 
-```
-        有个想法
-           │
-   requirements ───────── 把需求说清，先想想要不要写代码
-           │
-      跑出 demo，验证想法
-           │
-      值得做成正式的？──── 否 ──→ 收工，你已经省下一下午
-           │ 是
-   architecture ───────── 看懂架构、选对技术（顺便把自己练成行家）
-           │
-   production ─────────── 规范 / 安全 / 部署 / 验收 / 文档
-           │
-           ▼
-   survival  ←── 从第一行代码起，全程在场，避坑 + 自救
-```
+<div align="center">
+<img src="assets/journey.png" alt="vibe-coding-kit 的使用旅程：从想法到上线，5 个 Skill 各管一段" width="900">
+</div>
 
 ## 不止于"做完"——把小白带成行家
 
@@ -90,15 +76,43 @@
 
 ## 快速开始
 
+每个 Skill 就是一个含 `SKILL.md` 的文件夹——这是通用的 Skill 格式。下面三种用法，**从最省事到最进阶**，挑一个适合你的：
+
+### 方式一 · 零安装，复制即用（最简单，人人都会）★ 推荐先用这个
+
+不想折腾任何设置，30 秒就能试：
+
+1. 打开本仓库，进 `skills/` 里你想用的那个文件夹（不知道选哪个？先用 `vibe-coding-requirements`）。
+2. 点开里面的 `SKILL.md`，**全选复制**全部内容。
+3. 回到你和 AI 的对话框（Claude、ChatGPT、Codex 都行），**粘贴进去**，再补一句"请按上面这套方法帮我"。
+
+就这样，立刻能用。先把它跑顺，确认有用了，再考虑下面更省心的方式。
+
+### 方式二 · Claude 网页/桌面版：上传成自定义 Skill
+
+如果你常用 [claude.ai](https://claude.ai) 网页版或桌面 App（需要 Pro 及以上套餐）：
+
+1. 先把整个仓库下载到本地：点页面右上角绿色 **Code → Download ZIP**，解压。
+2. 在 Claude 里进入 **Settings（设置）→ Capabilities / Skills（技能）**。
+3. 选择上传自定义 Skill，把 `skills/` 下你要用的那个文件夹（含 `SKILL.md`）传上去。
+4. 之后在对话里它会**在合适的时机自动登场**，不用每次再贴。
+
+### 方式三 · Claude Code：放进 skills 文件夹
+
+如果你用命令行版的 Claude Code：
+
 ```bash
+# 1. 下载仓库
 git clone https://github.com/Junliu1066/vibe-coding-kit.git
+
+# 2. 把需要的 skill 复制到 Claude Code 的个人 skills 目录
+cp -R vibe-coding-kit/skills/vibe-coding-requirements ~/.claude/skills/
+# 想全装就把整个 skills 目录下的文件夹都复制过去
 ```
 
-每个 Skill 就是一个含 `SKILL.md` 的文件夹——这是通用的 Skill 格式。把需要的那个接入你的 Claude 即可。
+放好后重启 Claude Code，它会自动识别；你描述需求时对应 skill 会自动触发。
 
-**接入方式因使用端而异**（Claude.ai 自定义 Skill、Claude Code 的 Agent Skills、API 等各不相同，且可能更新），请以官方最新文档为准：[docs.claude.com](https://docs.claude.com) ・ [support.claude.com](https://support.claude.com)。
-
-**零安装用法：** 不想折腾，直接把对应 `SKILL.md` 的内容复制进对话，当作给 AI 的指引，立刻就能用。
+> **说明：** 各端的菜单名称和入口可能随版本更新而微调，如与上文略有出入，请以官方最新文档为准：[docs.claude.com](https://docs.claude.com) ・ [support.claude.com](https://support.claude.com)。**拿不准就用「方式一」**，它永远有效。
 
 ## 先看一个真实案例
 
