@@ -75,6 +75,8 @@
 
 > **流程治理（v2 新增）：** 除了"管产出物"，Harness 现在还"管过程"——`harness.json` 的 `workflow` 块把流程定义成 S1 需求 → S2 选型 → S3 上线 的有序流水线，每阶段有出口门、每步有退出条件。一个 `docs/进度账本.md` 记录"当前走到第几步"，AI 每轮先读、每过一步回写，**没过门不准往下冲**，跳步要留痕。这解决了"纯 Skill 在对话里不按步骤推进、乱序跳步"的问题。详见 `docs/Harness-v2-重设计方案.md`。
 
+> **项目进度卡（v2.1 新增）：** `docs/进度账本.md` 管 S1/S2/S3 流程门，`.dsu/progress/` 管开发期上下文恢复。默认只读 `.dsu/progress/index.md`，任务涉及某个模块时再读 `.dsu/progress/modules/duXX-xxx.md`，需要复盘单次任务时才读 `.dsu/progress/tasks/任务ID.md`。总表只放索引级信息：当前阶段、当前主线、完成 DU、进行中 DU、下一步、最大风险。模板见 `examples/项目进度卡-总表模板.md`、`examples/项目进度卡-模块模板.md`、`examples/项目进度卡-任务模板.md`。
+
 ### 📚 方法论库（references/方法论）
 
 Skill 不再把产品方法论抄在每个文件里，而是统一收进 `references/方法论/`——问题优先、RICE/MoSCoW 优先级、**EARS 验收格式**、边界清单、非功能模板、HEART 指标、用户研究全流程等。Skill 在你卡住时指向对应那份，**你不需要通读**。脾气照旧：方法论是工具箱不是检查表，demo 阶段一律打折，挑真用得上的几件。

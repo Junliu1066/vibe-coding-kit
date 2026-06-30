@@ -36,7 +36,67 @@
       "path": "docs/进度账本.md",
       "template": "examples/进度账本-模板.md",
       "description": "进度账本，流程的唯一状态来源。AI 每轮开场读、每过一道门更新"
+    },
+    "progress_index": {
+      "path": ".dsu/progress/index.md",
+      "template": "examples/项目进度卡-总表模板.md",
+      "description": "项目进度卡总表，开发期上下文索引。默认开工前只读本文件，细节下钻到 modules/ 和 tasks/"
+    },
+    "progress_module_card": {
+      "path": ".dsu/progress/modules/duXX-xxx.md",
+      "template": "examples/项目进度卡-模块模板.md",
+      "description": "模块进度卡，记录单个 DU / 模块的真实状态、文件边界、测试、风险和下一步"
+    },
+    "progress_task_card": {
+      "path": ".dsu/progress/tasks/任务ID.md",
+      "template": "examples/项目进度卡-任务模板.md",
+      "description": "任务 Closeout 卡，记录单次任务结果、修改范围、验收、风险和同步更新项"
     }
+  },
+
+  "progress_cards": {
+    "description": "开发期项目进度卡模块。目标是用 .dsu/progress/index.md 做低上下文恢复入口，再按需读取模块卡和任务卡。",
+    "directory": ".dsu/progress",
+    "templates": {
+      "index": "examples/项目进度卡-总表模板.md",
+      "module": "examples/项目进度卡-模块模板.md",
+      "task": "examples/项目进度卡-任务模板.md"
+    },
+    "recommended_structure": [
+      ".dsu/progress/index.md",
+      ".dsu/progress/modules/du00-context-progress.md",
+      ".dsu/progress/tasks/p0-duXX-tXX.md",
+      ".dsu/progress/archive/old-progress-YYYY-MM-DD.md"
+    ],
+    "read_rules": [
+      "默认只读 .dsu/progress/index.md",
+      "只有当前任务涉及某个模块时，才额外读取 .dsu/progress/modules/duXX-xxx.md",
+      "只有需要复盘具体任务时，才读取 .dsu/progress/tasks/任务ID.md",
+      "不得为了恢复上下文默认读取所有 modules/ 和 tasks/"
+    ],
+    "write_rules": [
+      "任务完成后必须新建或更新对应 .dsu/progress/tasks/任务ID.md",
+      "任务完成后必须同步更新对应模块卡",
+      "任务完成后必须同步更新 .dsu/progress/index.md",
+      "如项目启用 change-ledger 或 experience-store，任务卡必须记录已同步或说明未启用"
+    ],
+    "index_questions": [
+      "当前项目阶段是什么",
+      "当前主线做到哪里了",
+      "哪些 DU 完成了",
+      "哪些 DU 正在做",
+      "下一步做什么",
+      "当前最大风险是什么"
+    ],
+    "status_enum": ["未开始", "脚手架", "进行中", "已完成", "阻塞", "回滚", "待重构"],
+    "quality_checks": [
+      "index.md 只包含索引级信息，不堆模块实现细节",
+      "index.md 必须能回答 6 个索引问题",
+      "模块卡只记录本模块，不写其他模块细节",
+      "任务卡只记录单次任务事实，不写无关分析",
+      "下一轮 AI 最小上下文控制在 150 到 300 字",
+      "完成任务后 index、模块卡、任务卡三者状态一致"
+    ]
   },
 
   "skills": {
